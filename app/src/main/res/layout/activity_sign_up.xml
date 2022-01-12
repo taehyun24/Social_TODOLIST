@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignUpActivity">
+    <TextView
+        android:id="@+id/text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/jalnan"
+        android:text="PW"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/edit_id"
+        android:layout_width="262dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:ems="10"
+        android:gravity="top"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/text_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/jalnan"
+        android:text="PW"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/edit_pw"
+        android:layout_width="262dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:ems="10"
+        android:gravity="top"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+        android:inputType="textPassword" />
+
+    <android.widget.Button
+        android:id="@+id/signup_btn"
+        android:layout_width="278dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="250dp"
+        android:background="#000000"
+        android:fontFamily="@font/jalnan"
+        android:text="회원가입"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+</LinearLayout>
