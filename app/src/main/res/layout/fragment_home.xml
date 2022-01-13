@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:orientation="vertical"
-    android:id="@+id/homeFragment">
+    android:id="@+id/homeFragment"
+    tools:context="com.example.todolist.fragments.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.todolist.fragments.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_socialFragment"
             app:destination="@id/socialFragment" />
@@ -15,7 +16,8 @@
     <fragment
         android:id="@+id/socialFragment"
         android:name="com.example.todolist.fragments.SocialFragment"
-        android:label="SocialFragment" >
+        android:label="fragment_social"
+        tools:layout="@layout/fragment_social" >
         <action
             android:id="@+id/action_socialFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -23,5 +25,6 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.todolist.fragments.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
