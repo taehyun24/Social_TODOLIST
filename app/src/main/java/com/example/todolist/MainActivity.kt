@@ -3,14 +3,20 @@ package com.example.todolist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todolist.databinding.ActivityMainBinding
+import com.example.todolist.fragments.HomeFragment
+import com.example.todolist.fragments.TodoFragment
+import com.example.todolist.viewmodel.MemoViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity()    // BottomNavigationView.OnNavigationItemSelectedListener
+{
     lateinit var binding: ActivityMainBinding
+    lateinit var memoViewModel: MemoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,33 +24,35 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(binding.root)
 
         // 페이저에 어댑터 연결
-        binding.viewpager.adapter = ViewPagerAdapter(this)
+        // binding.viewpager.adapter = ViewPagerAdapter(this)
 
         // 슬라이드하여 페이지가 변경되면 바텀네비게이션의 탭도 그 페이지로 활성화
-        binding.viewpager.registerOnPageChangeCallback(
+        /*binding.viewpager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback(){
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     binding.bottomNav.menu.getItem(position).isChecked = true
                 }
             }
-        )
+        )*/
         // 리스너 연결
-        binding.bottomNav.setOnNavigationItemSelectedListener(this)
+        // binding.bottomNav.setOnNavigationItemSelectedListener(this)
 
-        try {
+        /*try {
             val navHostFragment = supportFragmentManager.findFragmentById(R.id.viewpager) as NavHostFragment    //null이면 navhostFragment가 될 수없기 때문에 트라이캐치문을 써줌
             val navController = navHostFragment.navController
             NavigationUI.setupWithNavController(binding.bottomNav, navController)
         }catch (e: NullPointerException){
             e.printStackTrace()
-        }
+        }*/
 
-
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        NavigationUI.setupWithNavController(binding.bottomNav, navController)
         binding.bottomNav.itemIconTintList = null   //아이콘 원래 색으로해줌
     }
 
-
+/*
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.homeFragment -> {
@@ -66,5 +74,5 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return false
             }
         }
-    }
+    }*/
 }

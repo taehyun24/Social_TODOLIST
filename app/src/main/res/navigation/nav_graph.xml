@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_socialFragment"
             app:destination="@id/socialFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
     </fragment>
     <fragment
         android:id="@+id/socialFragment"
@@ -27,4 +30,9 @@
         android:name="com.example.todolist.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.example.todolist.fragments.TodoFragment"
+        android:label="fragment_todo"
+        tools:layout="@layout/fragment_todo" />
 </navigation>
