@@ -1,6 +1,7 @@
 package com.example.todolist.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.databinding.FragmentTodoBinding
 import com.example.todolist.model.Memo
 import com.example.todolist.viewmodel.MemoViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class TodoFragment : Fragment() {
+class TodoFragment : BottomSheetDialogFragment() {
 
-    var db: FirebaseFirestore? = null   //데이터베이스 사용
-    var auth: FirebaseAuth? = null //유저 정보가져오기 위해 사용
     lateinit var memoViewModel: MemoViewModel
 
     private var binding: FragmentTodoBinding? = null
@@ -31,17 +32,16 @@ class TodoFragment : Fragment() {
     ): View? {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
 
+           //현재날짜
+        var date = arguments?.get("date").toString()
+        binding?.tvDate?.text = date
         memoViewModel = ViewModelProvider(requireActivity()).get(MemoViewModel::class.java)
 
-        //초기화
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
 
         binding?.createButton?.setOnClickListener {
             var name = binding?.etName?.text.toString()
             var time = binding?.etTime?.text.toString()
-            var day = binding?.etDay?.text.toString()
-            memoViewModel.updateValue(name,time,day)
+            memoViewModel.updateValue(name,time, date)
             Toast.makeText(requireContext(),"추가되었습니다.",Toast.LENGTH_LONG).show()
 
         }

@@ -26,175 +26,41 @@
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_date"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/jalnan"
+                android:text="2022년 1월"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/calendar_btn"
+                android:layout_width="42dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#000000"
+                android:drawableTop="@drawable/down_edit"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/jalnan"
-            android:text="2022년 1월"
+            android:text="요일"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/re_text"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="33dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="월"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_tues"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="38dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="화"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_wednes"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="34dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="수"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_thurs"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="목"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_fri"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="금"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_satur"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="토"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_sun"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jalnan"
-                android:text="일"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/re_circle"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/circle1"
-                android:fontFamily="@font/jalnan"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_cir2"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/circle1"
-                android:fontFamily="@font/jalnan"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/cir3"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="26dp"
-                android:background="@drawable/circle1"
-                android:fontFamily="@font/jalnan"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/cir4"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="28dp"
-                android:background="@drawable/circle1"
-                android:fontFamily="@font/jalnan"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/cir5"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="28dp"
-                android:background="@drawable/circle1"
-                android:fontFamily="@font/jalnan"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/cir6"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="29dp"
-                android:background="@drawable/circle1"
-                android:fontFamily="@font/jalnan"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/cir7"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="29dp"
-                android:background="@drawable/circle1"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-        </LinearLayout>
 
         <android.widget.Button
             android:id="@+id/todo_btn"

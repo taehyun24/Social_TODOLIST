@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity()    // BottomNavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        ViewModelProvider(this).get(MemoViewModel::class.java)
         // 페이저에 어댑터 연결
         // binding.viewpager.adapter = ViewPagerAdapter(this)
 
