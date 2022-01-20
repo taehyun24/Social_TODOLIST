@@ -1,38 +1,31 @@
-package com.example.todolist.fragments
+package com.example.todolist
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.view.Window
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.R
-import com.example.todolist.databinding.FragmentMemoDetailBinding
-import com.example.todolist.model.Memo
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.todolist.databinding.ActivityMemoDetailBinding
 
-class MemoDetailFragment: BottomSheetDialogFragment() {
+class MemoDetailActivity: Activity() {
 
-    var binding: FragmentMemoDetailBinding? = null
+    var binding: ActivityMemoDetailBinding? = null
     lateinit var detail_name: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMemoDetailBinding.inflate(inflater,container,false)
-        var bundle = arguments
-        detail_name = bundle?.getString("name","default").toString()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)   //타이틀 없애기
+        binding = ActivityMemoDetailBinding.inflate(layoutInflater)
+        setContentView(binding!!.root)
+        detail_name = intent?.getStringExtra("name").toString()
         Log.d("ds","ds")
         binding?.memoDetailRecyclerView?.adapter = MemoDetailAdapter()
-        binding?.memoDetailRecyclerView?.layoutManager = LinearLayoutManager(activity)
-        return binding!!.root
+        binding?.memoDetailRecyclerView?.layoutManager = LinearLayoutManager(this)
     }
 
     inner class MemoDetailAdapter : RecyclerView.Adapter<MemoDetailAdapter.ItemViewHolder>() {
@@ -55,7 +48,7 @@ class MemoDetailFragment: BottomSheetDialogFragment() {
         }
 
         override fun getItemCount(): Int {
-            return 2
+            return 1
         }
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -63,8 +56,8 @@ class MemoDetailFragment: BottomSheetDialogFragment() {
         }
     }
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         binding = null
-        super.onDestroyView()
+        super.onDestroy()
     }
 }

@@ -9,22 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.MemoDetailActivity
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentHomeBinding
-import com.example.todolist.databinding.MemoItemBinding
 import com.example.todolist.model.Memo
 import com.example.todolist.viewmodel.MemoViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import java.lang.Exception
-import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -86,7 +83,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
+
 
         binding?.todoBtn?.setOnClickListener {
             val bundle = Bundle()
@@ -153,11 +150,15 @@ class HomeFragment : Fragment() {
                 holder.bind(memoList[position])
             })*/
             holder.memoBtn.setOnClickListener {
-                var bundle = Bundle()
+                /*var bundle = Bundle()
                 bundle.putString("name",memoViewModel.memoList[position].name)
                 val memoDetailFragment = MemoDetailFragment()
                 memoDetailFragment.arguments = bundle
                 memoDetailFragment.show(requireFragmentManager(),"Dialog Fragment")
+                 */
+                var intent = Intent(requireContext(),MemoDetailActivity::class.java)
+                intent.putExtra("name",memoViewModel.memoList[position].name)
+                startActivity(intent)
             }
         }
     }

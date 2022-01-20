@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/socialFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
     android:orientation="vertical"
-    android:id="@+id/socialFragment"
     tools:context="com.example.todolist.fragments.SocialFragment">
 
     <LinearLayout
@@ -16,11 +16,45 @@
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/button2"
+        <TextView
+            android:id="@+id/tv_social"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/jalnan"
+            android:text="둘러보기"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1B74FB"
-            android:text="소셜" />
+            app:tabTextColor="#FFFFFF">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
     </LinearLayout>
+
 </LinearLayout>

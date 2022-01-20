@@ -1,5 +1,6 @@
 package com.example.todolist
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +8,7 @@ import android.widget.Toast
 import com.example.todolist.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : Activity() {
 
     var auth: FirebaseAuth? = null
     var binding: ActivitySignUpBinding? = null

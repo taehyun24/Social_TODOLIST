@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.fragments.HomeFragment
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity()    // BottomNavigationView.OnNavigation
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
+
         binding.bottomNav.itemIconTintList = null   //아이콘 원래 색으로해줌
     }
 
