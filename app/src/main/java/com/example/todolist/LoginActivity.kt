@@ -49,7 +49,16 @@ class LoginActivity : AppCompatActivity() {
 
     fun moveMainPage(user: FirebaseUser?){
         if (user != null){
-            startActivity(Intent(this,MainActivity::class.java))
+            var intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("email",user.email)
+            intent.putExtra("uid",user.uid)
+            startActivity(intent)
+            finish()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 }

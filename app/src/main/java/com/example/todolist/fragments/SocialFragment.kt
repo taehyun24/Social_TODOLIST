@@ -26,7 +26,7 @@ class SocialFragment: Fragment() {
         binding = FragmentSocialBinding.inflate(inflater,container,false)
 
         //페이지 프래그먼트 가져옴
-        val list = listOf(HomeFragment(),SocialFragment(),ProfileFragment())
+        val list = listOf(Tab1Fragment(),Tab2Fragment(),Tab3Fragment())
         //어댑터 생성
         val pagerAdapter = FragmentPagerAdapter(list,requireActivity())
         //어댑터와 뷰페이저 연결

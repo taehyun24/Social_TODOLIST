@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.MemoDetailActivity
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentHomeBinding
+import com.example.todolist.databinding.FragmentOtherHomeBinding
 import com.example.todolist.model.Memo
 import com.example.todolist.viewmodel.MemoViewModel
 import com.example.todolist.viewmodel.MemoViewModelFactory
@@ -27,10 +28,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeFragment : Fragment() {
+class OtherHomeFragment : Fragment() {
 
-    lateinit var memoViewModelFactory: MemoViewModelFactory
-    private var binding: FragmentHomeBinding? = null
+
+    private var binding: FragmentOtherHomeBinding? = null
     lateinit var memoViewModel: MemoViewModel
     lateinit var today: Calendar
     lateinit var date: String
@@ -43,13 +44,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentOtherHomeBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
-        if (arguments!= null){  //소셜 탭에서 넘어온경우
-            uid = arguments?.getString("uid")
-        }else{  //사용자가 로그인한 경우
-            uid = auth?.uid
-        }
+        uid = auth?.uid
         currentUserUid = auth?.currentUser?.uid
 
         if (uid == currentUserUid){
@@ -86,8 +83,8 @@ class HomeFragment : Fragment() {
         binding?.tvDate?.text = date    //현재 날짜
         getDateDay(date,"yyyy년M월dd일")    //요일구하기
 
-        memoViewModelFactory = MemoViewModelFactory("email!!", uid!!)
-        memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
+
+        memoViewModel = ViewModelProvider(requireActivity()).get(MemoViewModel::class.java)
 
 
 
@@ -106,7 +103,6 @@ class HomeFragment : Fragment() {
         binding?.todoBtn?.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("date",date)
-            bundle.putString("uid",uid)
             val todoFragment = TodoFragment()
             todoFragment.arguments = bundle
             todoFragment.show(requireFragmentManager(),"Dialog Fragment")

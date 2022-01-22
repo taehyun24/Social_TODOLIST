@@ -1,36 +1,39 @@
 package com.example.todolist.viewmodel
 
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.fragments.HomeFragment
 import com.example.todolist.model.Memo
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MemoViewModel : ViewModel() {
+class MemoViewModel(email: String,uid: String) : ViewModel() {
     var db: FirebaseFirestore? = null
     var currentUserUid: String? = null
     var auth: FirebaseAuth? = null
-    var uid: String? = null
     var memoList: ArrayList<Memo> = arrayListOf()
+    var email = email
+    var uid = uid
 
     private val _currentValue = MutableLiveData<ArrayList<Memo>>()
     val currentValue: LiveData<ArrayList<Memo>>
         get() = _currentValue
 
+
+
     //초기화
     init {
         auth = FirebaseAuth.getInstance()   //유저값 가져옴
         db = FirebaseFirestore.getInstance()    //db 가져옴
+
         //파이어베이스에서 데이터 가져오기
-        db?.collection("memo")?.whereEqualTo("uid",auth?.currentUser?.uid)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
+        db?.collection("memo")?.whereEqualTo("uid",uid)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
             memoList.clear()
             for (snapshot in value!!.documents) {
                 memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
@@ -42,10 +45,9 @@ class MemoViewModel : ViewModel() {
     }
 
     fun updateValue(name: String, time: String, day: String) {
-
         var memo = Memo()
-        memo.uid = auth?.currentUser?.uid
-        memo.userEmail = auth?.currentUser?.email
+        memo.uid = uid
+        memo.userEmail = email
         memo.name = name
         memo.time = time
         memo.date = day

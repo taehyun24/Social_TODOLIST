@@ -12,12 +12,14 @@
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/down_edit.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/ellipsis.xml" value="0.3314814814814815" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/ellipsis_edit.xml" value="1.3" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/home_edit.xml" value="0.3351851851851852" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/ic_profile2.xml" value="0.33" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/ic_social_background.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/rect1.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/rect2.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/rect3.xml" value="0.3472222222222222" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/rect4.xml" value="0.3351851851851852" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/drawable/rect_white.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/font/jalnan.xml" value="0.3963541666666667" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/activity_home.xml" value="0.36614583333333334" />
@@ -31,11 +33,16 @@
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/activity_social_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_memo_detail.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_other_home.xml" value="0.2046875" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_profile.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_social.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_tab1.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_tab2.xml" value="0.3515625" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_tab3.xml" value="0.3515625" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/fragment_todo.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/memo_detail_item.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/memo_item.xml" value="0.25" />
+        <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/layout/tab_recycler.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Windows10/AndroidStudioProjects/TodoList/app/src/main/res/mipmap-anydpi-v26/ic_social.xml" value="0.2526041666666667" />
