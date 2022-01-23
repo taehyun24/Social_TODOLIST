@@ -36,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
                 if (binding?.editId != null && binding?.editPw != null){
                     if (task.isSuccessful){
                         Toast.makeText(this,"회원가입이 되었습니다.",Toast.LENGTH_LONG).show()
-                        profileViewModel.updateValue(binding?.editId?.text.toString())
+                        profileViewModel.updateValue(auth?.currentUser?.email!!, auth?.currentUser?.uid!!)
                         finish()
                     }
                 }else{

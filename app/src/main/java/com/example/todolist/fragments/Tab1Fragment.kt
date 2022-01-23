@@ -26,8 +26,6 @@ import com.example.todolist.viewmodel.ProfileViewModel
 class Tab1Fragment : Fragment() {
     lateinit var profileViewModel: ProfileViewModel
     var binding: FragmentTab1Binding? = null
-    lateinit var memoViewModelFactory: MemoViewModelFactory
-    lateinit var memoViewModel: MemoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +70,8 @@ class Tab1Fragment : Fragment() {
             holder.home_btn.setOnClickListener {
 
                 var bundle = Bundle()
-                bundle.putString("uid",profileViewModel.profileList[position].email)
+                bundle.putString("uid",profileViewModel.profileList[position].uid)
+                bundle.putString("email",profileViewModel.profileList[position].email)
                 Navigation.findNavController(binding!!.root).navigate(R.id.action_socialFragment_to_homeFragment,bundle)
             }
         }

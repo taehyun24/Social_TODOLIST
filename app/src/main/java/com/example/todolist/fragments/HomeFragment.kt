@@ -11,8 +11,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.MemoDetailActivity
@@ -36,7 +34,7 @@ class HomeFragment : Fragment() {
     lateinit var date: String
     var auth: FirebaseAuth? = null //유저 정보가져오기 위해 사용
     var uid: String? = null
-    var currentUserUid: String? = null // 내계정인지 다른사람계정인지 파악하기위해 사용
+    var email: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,20 +43,32 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
+
         if (arguments!= null){  //소셜 탭에서 넘어온경우
+            email = arguments?.getString("email")
             uid = arguments?.getString("uid")
+            binding?.tvHome?.text = email
+            binding?.todoBtn?.visibility = View.INVISIBLE
+            binding?.followBtn?.visibility = View.VISIBLE
         }else{  //사용자가 로그인한 경우
-            uid = auth?.uid
-        }
-        currentUserUid = auth?.currentUser?.uid
-
-        if (uid == currentUserUid){
-            //내 계정인 경우 EP11 유튜브
-
-        }else{
-            //다른 사람 계정인 경우
+            email = auth?.currentUser?.email
+            uid = auth?.currentUser?.uid
+            binding?.todoBtn?.visibility = View.VISIBLE
+            binding?.followBtn?.visibility = View.INVISIBLE
         }
 
+        //뷰모델 불러오기
+        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!)
+        memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
+
+
+        //뷰모델 관찰
+        memoViewModel.currentValue.observe(requireActivity(), Observer {
+            binding?.memoRecyclerView?.adapter = CustomAdapter()
+            binding?.memoRecyclerView?.layoutManager = LinearLayoutManager(activity)
+        })
+
+        //달력 눌렀을때
         binding?.calendarBtn?.setOnClickListener {
             today = Calendar.getInstance()
             val year = today.get(Calendar.YEAR)
@@ -79,6 +89,7 @@ class HomeFragment : Fragment() {
             dlg.show()
         }
 
+        //현재 날짜 구하기
         var now = System.currentTimeMillis()
         var get_date = Date(now)
         var dataFormat = SimpleDateFormat("yyyy년M월dd일")
@@ -86,27 +97,18 @@ class HomeFragment : Fragment() {
         binding?.tvDate?.text = date    //현재 날짜
         getDateDay(date,"yyyy년M월dd일")    //요일구하기
 
-        memoViewModelFactory = MemoViewModelFactory("email!!", uid!!)
-        memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
-
-
-
-        memoViewModel.currentValue.observe(requireActivity(), Observer {
-            binding?.memoRecyclerView?.adapter = CustomAdapter()
-            binding?.memoRecyclerView?.layoutManager = LinearLayoutManager(activity)
-        })
-
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        //할일 버튼 눌렀을때
         binding?.todoBtn?.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("date",date)
             bundle.putString("uid",uid)
+            bundle.putString("email",email)
             val todoFragment = TodoFragment()
             todoFragment.arguments = bundle
             todoFragment.show(requireFragmentManager(),"Dialog Fragment")
@@ -117,30 +119,15 @@ class HomeFragment : Fragment() {
 
         var memoList: ArrayList<Memo> = arrayListOf()
 
-
-        /*
-        init {
-            var s = memoViewModel.db?.collection("memo")?.
-            notifyDataSetChanged()
-
-            /*memoViewModel.db?.collection("memo")?.addSnapshotListener { value, error ->
-                for (snapshot in value!!.documents) {
-                    memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
-                }
-                notifyDataSetChanged()
-            }*/
-        }*/
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
            var view =
                 LayoutInflater.from(parent.context).inflate(R.layout.memo_item, parent, false)
-
             return ItemViewHolder(view)
         }
 
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val re_text = itemView.findViewById<TextView>(R.id.re_text)
-            val memoBtn = itemView.findViewById<Button>(R.id.memo_detail_btn)
+            val memoBtn = itemView.findViewById<ImageButton>(R.id.memo_detail_btn)
 
             fun bind(memo: Memo) {
                 re_text.text = memo.name
@@ -160,28 +147,39 @@ class HomeFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.bind(memoList[position])
-            /*
-            memoViewModel.currentValue.observe(requireActivity(), Observer {
-                if(memoViewModel.memoList[position].date == date){
-                    holder.bind(it[position])
+
+            if (binding?.followBtn?.visibility == View.VISIBLE)      //다른 사람 계정인경우
+            {
+               // holder.memoBtn.setImageResource(R.drawable.home_edit)
+                holder.memoBtn.setOnClickListener{
+                    //응원 버튼 기능
+                    memoViewModel.updateCheerUp(position)
                 }
-                re_text.text = it[position].name
-                holder.bind(memoList[position])
-            })*/
-            holder.memoBtn.setOnClickListener {
-                /*var bundle = Bundle()
-                bundle.putString("name",memoViewModel.memoList[position].name)
-                val memoDetailFragment = MemoDetailFragment()
-                memoDetailFragment.arguments = bundle
-                memoDetailFragment.show(requireFragmentManager(),"Dialog Fragment")
-                 */
-                var intent = Intent(requireContext(),MemoDetailActivity::class.java)
-                intent.putExtra("name",memoList[position].name)
-                startActivity(intent)
+
+                if (memoList[position].cheerup.containsKey(auth?.currentUser?.uid)){
+                    //응원 버튼이 눌린경우
+
+                    holder.memoBtn.setImageResource(R.drawable.cheer_up_edit)
+                }
+                else{
+                    //응원 버튼이 안눌린경우
+                    holder.memoBtn.setImageResource(R.drawable.cheer_up_empty_edit)
+                }
+            }
+
+            else        //내 계정인경우
+            {
+                holder.memoBtn.setImageResource(R.drawable.ellipsis_edit)
+                holder.memoBtn.setOnClickListener {
+                    var intent = Intent(requireContext(),MemoDetailActivity::class.java)
+                    intent.putExtra("name",memoList[position].name)
+                    startActivity(intent)
+                }
             }
         }
     }
 
+    //요일 구하기
     @Throws(Exception::class)
     fun getDateDay(date: String?, dateType: String?) {
         var day = ""
@@ -202,6 +200,7 @@ class HomeFragment : Fragment() {
         binding?.tvDay?.text = day
     }
 
+    //뷰 사라질때 binding 널값
     override fun onDestroyView() {
         binding = null
         super.onDestroyView()

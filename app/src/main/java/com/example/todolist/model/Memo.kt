@@ -6,5 +6,8 @@ data class Memo(
     var uid: String? = null,
     var date: String? = null,
     var userEmail: String? = null,
-    var timestamp: Long? = null) {
+    var timestamp: Long? = null,
+    var cheerupCount : Int = 0,
+    var cheerup: MutableMap<String,Boolean> = HashMap(),
+) {
 }

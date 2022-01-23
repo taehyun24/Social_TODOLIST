@@ -1,23 +1,21 @@
 package com.example.todolist.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.fragments.HomeFragment
 import com.example.todolist.model.Memo
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MemoViewModel(email: String,uid: String) : ViewModel() {
     var db: FirebaseFirestore? = null
-    var currentUserUid: String? = null
     var auth: FirebaseAuth? = null
     var memoList: ArrayList<Memo> = arrayListOf()
+    var uidList: ArrayList<String> = arrayListOf()
     var email = email
     var uid = uid
 
@@ -33,10 +31,12 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
         db = FirebaseFirestore.getInstance()    //db 가져옴
 
         //파이어베이스에서 데이터 가져오기
-        db?.collection("memo")?.whereEqualTo("uid",uid)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
+        db?.collection("memo")?.whereEqualTo("userEmail",email)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
             memoList.clear()
+            uidList.clear()
             for (snapshot in value!!.documents) {
                 memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
+                uidList.add(snapshot.id)
             }
             Log.d("크기", memoList.size.toString())
             _currentValue.value = memoList  //초기값 = 파이어베이스에서 가져온 값
@@ -56,4 +56,23 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
         Log.d("성공", "성공")
     }
 
+    fun updateCheerUp(position: Int){
+        var user_uid = auth?.currentUser?.uid
+        var tsDoc = db?.collection("memo")?.document(uidList[position])
+        db?.runTransaction { transaction ->
+            var memo = transaction.get(tsDoc!!).toObject(Memo::class.java)
+            if (memo!!.cheerup.containsKey(user_uid)){
+                //버튼이 눌렸을때
+                memo?.cheerupCount -= 1
+                memo.cheerup.remove(user_uid)
+            }
+            else{
+                //버튼이 안눌렸을때
+                memo?.cheerupCount += 1
+                memo.cheerup[user_uid!!] = true
+            }
+            //트랜잭션을 서버로 돌려줌
+            transaction.set(tsDoc,memo)
+        }
+    }
 }

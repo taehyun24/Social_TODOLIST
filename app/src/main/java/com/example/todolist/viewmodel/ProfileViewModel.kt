@@ -26,9 +26,11 @@ class ProfileViewModel: ViewModel() {
             _profilecurrentValue.value = profileList
         }
     }
-    fun updateValue(email: String){
+
+    fun updateValue(email: String, uid: String){
         var profile = Profile()
         profile.email = email
+        profile.uid = uid
         db?.collection("profile")?.document()?.set(profile)
     }
 }

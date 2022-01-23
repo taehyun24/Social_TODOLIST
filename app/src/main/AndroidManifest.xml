@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MemoDetailActivity"
-            android:theme="@android:style/Theme.Dialog"
-            android:exported="false"/>
+        <activity
+            android:name=".MemoDetailActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />

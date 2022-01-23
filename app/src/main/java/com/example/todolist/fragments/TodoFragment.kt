@@ -17,6 +17,7 @@ class TodoFragment : BottomSheetDialogFragment() {
     lateinit var memoViewModelFactory: MemoViewModelFactory
     lateinit var memoViewModel: MemoViewModel
     var uid: String? = null
+    var email: String? = null
     private var binding: FragmentTodoBinding? = null
 
     override fun onCreateView(
@@ -29,9 +30,10 @@ class TodoFragment : BottomSheetDialogFragment() {
            //현재날짜
         var date = arguments?.get("date").toString()
         uid = arguments?.get("uid").toString()
+        email = arguments?.get("email").toString()
         binding?.tvDate?.text = date
 
-        memoViewModelFactory = MemoViewModelFactory("email!!", uid!!)
+        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!)
         memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
 
 
