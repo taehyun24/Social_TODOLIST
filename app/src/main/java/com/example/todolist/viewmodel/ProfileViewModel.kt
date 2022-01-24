@@ -3,7 +3,6 @@ package com.example.todolist.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.todolist.model.Memo
 import com.example.todolist.model.Profile
 import com.google.firebase.firestore.FirebaseFirestore
 

@@ -173,6 +173,11 @@ class HomeFragment : Fragment() {
                 holder.memoBtn.setOnClickListener {
                     var intent = Intent(requireContext(),MemoDetailActivity::class.java)
                     intent.putExtra("name",memoList[position].name)
+                    var arrayList: ArrayList<String> = arrayListOf()
+                    for (i: Int in 0 until memoList[position].cheerup.keys.size){
+                        arrayList.add(memoList[position].cheerup.keys.elementAt(i))
+                    }
+                    intent.putExtra("userID",arrayList)
                     startActivity(intent)
                 }
             }
