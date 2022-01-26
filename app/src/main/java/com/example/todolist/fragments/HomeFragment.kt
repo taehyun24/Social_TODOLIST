@@ -19,6 +19,7 @@ import com.example.todolist.databinding.FragmentHomeBinding
 import com.example.todolist.model.Memo
 import com.example.todolist.viewmodel.MemoViewModel
 import com.example.todolist.viewmodel.MemoViewModelFactory
+import com.example.todolist.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -30,11 +31,13 @@ class HomeFragment : Fragment() {
     lateinit var memoViewModelFactory: MemoViewModelFactory
     private var binding: FragmentHomeBinding? = null
     lateinit var memoViewModel: MemoViewModel
+    lateinit var profileViewModel: ProfileViewModel
     lateinit var today: Calendar
     lateinit var date: String
     var auth: FirebaseAuth? = null //유저 정보가져오기 위해 사용
     var uid: String? = null
     var email: String? = null
+    var position: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +63,7 @@ class HomeFragment : Fragment() {
         //뷰모델 불러오기
         memoViewModelFactory = MemoViewModelFactory(email!!, uid!!)
         memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
+        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
 
         //뷰모델 관찰
@@ -87,6 +91,11 @@ class HomeFragment : Fragment() {
                 }
             },year,month,day)
             dlg.show()
+        }
+
+        //팔로우버튼 눌렀을때
+        binding?.followBtn?.setOnClickListener {
+            profileViewModel.requestFollow(uid!!)
         }
 
         //현재 날짜 구하기

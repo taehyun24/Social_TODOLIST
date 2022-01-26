@@ -59,6 +59,7 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
     fun updateCheerUp(position: Int){
         var user_uid = auth?.currentUser?.uid
         var tsDoc = db?.collection("memo")?.document(uidList[position])
+        Log.d("독", uidList[position])
         db?.runTransaction { transaction ->
             var memo = transaction.get(tsDoc!!).toObject(Memo::class.java)
             if (memo!!.cheerup.containsKey(user_uid)){
