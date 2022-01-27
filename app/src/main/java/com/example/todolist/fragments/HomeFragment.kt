@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
             binding?.memoRecyclerView?.layoutManager = LinearLayoutManager(activity)
         })
 
+
         //달력 눌렀을때
         binding?.calendarBtn?.setOnClickListener {
             today = Calendar.getInstance()
@@ -92,6 +93,24 @@ class HomeFragment : Fragment() {
             },year,month,day)
             dlg.show()
         }
+
+        profileViewModel.profilecurrentValue.observe(requireActivity(), Observer {
+            for (i:Int in 0 until profileViewModel.profileList.size){
+                //내 계정의 팔로잉에 상대방의 uid를 포함하고있을때
+                if(profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!){
+                    var myUID = profileViewModel.profileList[i]
+                    if (myUID.followings.keys.contains(uid)){
+                        binding?.followBtn?.text = "팔로우 취소"
+                    }else{
+                        binding?.followBtn?.text = "팔로우"
+                    }
+                    break
+                }
+            }
+
+
+        })
+
 
         //팔로우버튼 눌렀을때
         binding?.followBtn?.setOnClickListener {
