@@ -11,16 +11,18 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/re_circle"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/circle1"
+            android:background="#C83939"
+            android:checked="false"
             android:fontFamily="@font/jalnan"
+            android:text="CheckBox"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         <TextView
             android:id="@+id/re_text"

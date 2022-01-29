@@ -32,9 +32,10 @@ class ProfileFragment: Fragment() {
                 if (profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!){
                     binding?.follownNum?.text = profileViewModel.profileList[i].followingCount.toString()
                     binding?.followerNum?.text = profileViewModel.profileList[i].followerCount.toString()
+                    binding?.textGauge?.text = "${profileViewModel.profileList[i].gauge_value}/100"
+                    binding?.progressBar?.setProgress(profileViewModel.profileList[i].gauge_value)
                 }
             }
-
         })
         return binding!!.root
     }

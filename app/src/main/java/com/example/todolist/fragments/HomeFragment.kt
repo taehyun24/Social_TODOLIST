@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeFragment : Fragment() {
+class HomeFragment() : Fragment() {
 
     lateinit var memoViewModelFactory: MemoViewModelFactory
     private var binding: FragmentHomeBinding? = null
@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
     lateinit var profileViewModel: ProfileViewModel
     lateinit var today: Calendar
     lateinit var date: String
+    lateinit var now_date: String
     var auth: FirebaseAuth? = null //유저 정보가져오기 위해 사용
     var uid: String? = null
     var email: String? = null
@@ -60,39 +61,35 @@ class HomeFragment : Fragment() {
             binding?.followBtn?.visibility = View.INVISIBLE
         }
 
+
+
+
+
+
+        //팔로우버튼 눌렀을때
+        binding?.followBtn?.setOnClickListener {
+            profileViewModel.requestFollow(uid!!)
+        }
+
+        //현재 날짜 구하기
+        var now = System.currentTimeMillis()
+        var get_date = Date(now)
+        var dataFormat = SimpleDateFormat("yyyy년M월dd일")
+        date = dataFormat.format(get_date)
+        now_date = dataFormat.format(get_date)
+        binding?.tvDate?.text = date    //현재 날짜
+        getDateDay(date,"yyyy년M월dd일")    //요일구하기
+
         //뷰모델 불러오기
-        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!)
+        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!, date)
         memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-
 
         //뷰모델 관찰
         memoViewModel.currentValue.observe(requireActivity(), Observer {
             binding?.memoRecyclerView?.adapter = CustomAdapter()
             binding?.memoRecyclerView?.layoutManager = LinearLayoutManager(activity)
         })
-
-
-        //달력 눌렀을때
-        binding?.calendarBtn?.setOnClickListener {
-            today = Calendar.getInstance()
-            val year = today.get(Calendar.YEAR)
-            val month = today.get(Calendar.MONTH)
-            val day = today.get(Calendar.DATE)
-
-            val dlg = DatePickerDialog(requireContext(),object : DatePickerDialog.OnDateSetListener{
-                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int){
-                    date = "${year}년${month+1}월${dayOfMonth}일"
-                    Log.d("데이트",date)
-                    binding?.tvDate?.text = date
-                    getDateDay(date,"yyyy년M월dd일")    //요일구하기
-
-                    binding?.memoRecyclerView?.adapter = CustomAdapter()
-                    binding?.memoRecyclerView?.layoutManager = LinearLayoutManager(activity)
-                }
-            },year,month,day)
-            dlg.show()
-        }
 
         profileViewModel.profilecurrentValue.observe(requireActivity(), Observer {
             for (i:Int in 0 until profileViewModel.profileList.size){
@@ -111,22 +108,31 @@ class HomeFragment : Fragment() {
 
         })
 
+        //달력 눌렀을때
+        binding?.calendarBtn?.setOnClickListener {
+            today = Calendar.getInstance()
+            val year = today.get(Calendar.YEAR)
+            val month = today.get(Calendar.MONTH)
+            val day = today.get(Calendar.DATE)
 
-        //팔로우버튼 눌렀을때
-        binding?.followBtn?.setOnClickListener {
-            profileViewModel.requestFollow(uid!!)
+            val dlg = DatePickerDialog(requireContext(),object : DatePickerDialog.OnDateSetListener{
+                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int){
+                    date = "${year}년${month+1}월${dayOfMonth}일"
+                    Log.d("데이트",date)
+                    binding?.tvDate?.text = date
+                    getDateDay(date,"yyyy년M월dd일")    //요일구하기
+                    memoViewModel.getData(date,email!!)
+                }
+
+            },year,month,day)
+
+            dlg.show()
+
         }
-
-        //현재 날짜 구하기
-        var now = System.currentTimeMillis()
-        var get_date = Date(now)
-        var dataFormat = SimpleDateFormat("yyyy년M월dd일")
-        date = dataFormat.format(get_date)
-        binding?.tvDate?.text = date    //현재 날짜
-        getDateDay(date,"yyyy년M월dd일")    //요일구하기
 
         return binding!!.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -156,6 +162,7 @@ class HomeFragment : Fragment() {
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val re_text = itemView.findViewById<TextView>(R.id.re_text)
             val memoBtn = itemView.findViewById<ImageButton>(R.id.memo_detail_btn)
+            val checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)
 
             fun bind(memo: Memo) {
                 re_text.text = memo.name
@@ -175,6 +182,9 @@ class HomeFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.bind(memoList[position])
+
+            holder.checkBox.isChecked = memoList[position].check_status == true
+
 
             if (binding?.followBtn?.visibility == View.VISIBLE)      //다른 사람 계정인경우
             {
@@ -208,10 +218,30 @@ class HomeFragment : Fragment() {
                     intent.putExtra("userID",arrayList)
                     startActivity(intent)
                 }
+
+                if (memoList[position].date == binding?.tvDate?.text){
+
+                    //체크박스가 선택된 상태일 경우
+                    if (holder.checkBox.isChecked){
+
+                        holder.checkBox.setOnClickListener {
+                            memoViewModel.updateCheckBox(position,false)
+                            holder.checkBox.isChecked = false
+                            profileViewModel.updateGauge("minus")
+                        }
+                    }
+                    else{
+
+                        holder.checkBox.setOnClickListener {
+                            memoViewModel.updateCheckBox(position,true)
+                            holder.checkBox.isChecked = true
+                            profileViewModel.updateGauge("plus")
+                        }
+                    }
+                }
             }
         }
     }
-
     //요일 구하기
     @Throws(Exception::class)
     fun getDateDay(date: String?, dateType: String?) {

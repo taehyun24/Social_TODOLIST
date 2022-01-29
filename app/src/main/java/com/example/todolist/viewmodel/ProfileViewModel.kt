@@ -77,4 +77,31 @@ class ProfileViewModel: ViewModel() {
             return@runTransaction
         }
     }
+
+    fun updateGauge(status: String){
+        var tsDoc = db?.collection("profile")?.document(auth?.currentUser?.uid!!)
+        db?.runTransaction { transaction->
+            var DTO = transaction.get(tsDoc!!).toObject(Profile::class.java)
+            if (status == "plus"){
+                DTO!!.gauge_value += 1
+            }
+            else{
+                DTO!!.gauge_value -= 1
+            }
+            transaction.set(tsDoc,DTO!!)
+            return@runTransaction
+        }
+    }
+
+    /*
+    fun getFollow(uid: HashMap<String,Boolean>){
+        //팔로워에 내가 있는사람 = 내가 팔로우한 사람
+        db?.collection("profile")?.whereEqualTo("followers",uid)?.addSnapshotListener { value, error ->
+            profileList.clear()
+            for (snapshot in value!!.documents){
+                profileList.add(snapshot.toObject(Profile::class.java)!!)
+            }
+            _profilecurrentValue.value = profileList
+        }
+    }*/
 }

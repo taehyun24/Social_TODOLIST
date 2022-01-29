@@ -11,11 +11,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.collections.ArrayList
 
-class MemoViewModel(email: String,uid: String) : ViewModel() {
+class MemoViewModel(email: String,uid: String,date: String) : ViewModel() {
     var db: FirebaseFirestore? = null
     var auth: FirebaseAuth? = null
     var memoList: ArrayList<Memo> = arrayListOf()
-    var uidList: ArrayList<String> = arrayListOf()
+    var memoIdList: ArrayList<String> = arrayListOf()
     var email = email
     var uid = uid
 
@@ -31,12 +31,12 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
         db = FirebaseFirestore.getInstance()    //db 가져옴
 
         //파이어베이스에서 데이터 가져오기
-        db?.collection("memo")?.whereEqualTo("userEmail",email)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
+        db?.collection("memo")?.whereEqualTo("date",date)?.whereEqualTo("userEmail",email)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
             memoList.clear()
-            uidList.clear()
+            memoIdList.clear()
             for (snapshot in value!!.documents) {
                 memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
-                uidList.add(snapshot.id)
+                memoIdList.add(snapshot.id)
             }
             Log.d("크기", memoList.size.toString())
             _currentValue.value = memoList  //초기값 = 파이어베이스에서 가져온 값
@@ -44,6 +44,20 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
         }
     }
 
+    fun getData(s_date: String, s_email: String){
+        //파이어베이스에서 데이터 가져오기
+        db?.collection("memo")?.whereEqualTo("date",s_date)?.whereEqualTo("userEmail",s_email)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
+            memoList.clear()
+            memoIdList.clear()
+            for (snapshot in value!!.documents) {
+                memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
+                memoIdList.add(snapshot.id)
+            }
+            Log.d("크기", memoList.size.toString())
+            _currentValue.value = memoList  //초기값 = 파이어베이스에서 가져온 값
+            Log.d("현재", _currentValue.value?.toString()!!)
+        }
+    }
     fun updateValue(name: String, time: String, day: String) {
         var memo = Memo()
         memo.uid = uid
@@ -58,8 +72,8 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
 
     fun updateCheerUp(position: Int){
         var user_uid = auth?.currentUser?.uid
-        var tsDoc = db?.collection("memo")?.document(uidList[position])
-        Log.d("독", uidList[position])
+        var tsDoc = db?.collection("memo")?.document(memoIdList[position])
+        Log.d("독", memoIdList[position])
         db?.runTransaction { transaction ->
             var memo = transaction.get(tsDoc!!).toObject(Memo::class.java)
             if (memo!!.cheerup.containsKey(user_uid)){
@@ -76,4 +90,14 @@ class MemoViewModel(email: String,uid: String) : ViewModel() {
             transaction.set(tsDoc,memo)
         }
     }
+
+    fun updateCheckBox(position: Int, status: Boolean){
+        var tsDoc = db?.collection("memo")?.document(memoIdList[position])
+        db?.runTransaction { transaction->
+            var memo = transaction.get(tsDoc!!).toObject(Memo::class.java)
+            memo?.check_status = status
+            transaction.set(tsDoc,memo!!)
+        }
+    }
+
 }

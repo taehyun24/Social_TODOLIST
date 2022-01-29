@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Tab3Fragment">
+    android:orientation="vertical"
+    tools:context=".fragments.Tab3Fragment" >
+    <EditText
+        android:id="@+id/search_edit"
+        android:layout_width="338dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rect4"
+        android:ems="10"
+        android:fontFamily="@font/jalnan"
+        android:hint="이메일로 검색하기"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#7C8F8F8F"
+        android:textSize="12sp"
+        tools:ignore="TouchTargetSizeCheck" />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tab_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="20dp">
 
-</FrameLayout>
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

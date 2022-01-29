@@ -33,7 +33,7 @@ class TodoFragment : BottomSheetDialogFragment() {
         email = arguments?.get("email").toString()
         binding?.tvDate?.text = date
 
-        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!)
+        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!,date)
         memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
 
 

@@ -9,5 +9,6 @@ data class Memo(
     var timestamp: Long? = null,
     var cheerupCount : Int = 0,
     var cheerup: MutableMap<String,Boolean> = HashMap(),
+    var check_status: Boolean = false,
 ) {
 }
