@@ -9,55 +9,54 @@
     android:orientation="vertical"
     tools:context="com.example.todolist.fragments.HomeFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/tv_home"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jalnan"
+        android:text="홈"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_home"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/jalnan"
-            android:text="홈"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_date"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/jalnan"
+            android:text="2022년 1월"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:fontFamily="@font/jalnan"
-                android:text="2022년 1월"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+        <Button
+            android:id="@+id/calendar_btn"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="#000000"
+            android:drawableStart="@drawable/down_edit"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-            <Button
-                android:id="@+id/calendar_btn"
-                android:layout_width="42dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="20dp"
-                android:background="#000000"
-                android:drawableTop="@drawable/down_edit"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <Button
-                android:id="@+id/follow_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:text="팔로우"
-                android:visibility="gone" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/follow_btn"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/rect_white"
+            android:fontFamily="@font/jalnan"
+            android:text="팔로우"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
 
         <TextView
             android:id="@+id/tv_day"
@@ -90,5 +89,3 @@
             tools:listitem="@layout/memo_item" />
 
     </LinearLayout>
-
-</LinearLayout>

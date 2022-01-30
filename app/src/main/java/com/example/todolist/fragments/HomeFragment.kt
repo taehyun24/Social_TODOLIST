@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.MemoDetailActivity
 import com.example.todolist.R
+import com.example.todolist.CustomToast
 import com.example.todolist.databinding.FragmentHomeBinding
 import com.example.todolist.model.Memo
 import com.example.todolist.viewmodel.MemoViewModel
@@ -69,6 +70,12 @@ class HomeFragment() : Fragment() {
         //팔로우버튼 눌렀을때
         binding?.followBtn?.setOnClickListener {
             profileViewModel.requestFollow(uid!!)
+            if (binding?.followBtn?.text == "팔로우"){
+                CustomToast.createToast(requireContext(),"팔로우했어요")?.show()
+            }else{
+                CustomToast.createToast(requireContext(),"팔로우를 취소했어요")?.show()
+            }
+
         }
 
         //현재 날짜 구하기
@@ -228,6 +235,7 @@ class HomeFragment() : Fragment() {
                             memoViewModel.updateCheckBox(position,false)
                             holder.checkBox.isChecked = false
                             profileViewModel.updateGauge("minus")
+                            CustomToast.createToast(context!!,"취소했어요..")?.show()
                         }
                     }
                     else{
@@ -236,6 +244,7 @@ class HomeFragment() : Fragment() {
                             memoViewModel.updateCheckBox(position,true)
                             holder.checkBox.isChecked = true
                             profileViewModel.updateGauge("plus")
+                            CustomToast.createToast(context!!,"완료했어요!!")?.show()
                         }
                     }
                 }

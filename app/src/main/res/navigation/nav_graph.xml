@@ -32,14 +32,20 @@
         android:id="@+id/profileFragment"
         android:name="com.example.todolist.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_explainFragment"
+            app:destination="@id/explainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/todoFragment"
         android:name="com.example.todolist.fragments.TodoFragment"
         android:label="fragment_todo"
         tools:layout="@layout/fragment_todo" />
+
     <fragment
-        android:id="@+id/otherHomeFragment"
-        android:name="com.example.todolist.fragments.OtherHomeFragment"
-        android:label="OtherHomeFragment" />
+        android:id="@+id/explainFragment"
+        android:name="com.example.todolist.ExplainActivity"
+        android:label="fragment_explain"
+        tools:layout="@layout/activity_explain" />
 </navigation>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.todolist.CustomToast
 import com.example.todolist.databinding.FragmentTodoBinding
 import com.example.todolist.viewmodel.MemoViewModel
 import com.example.todolist.viewmodel.MemoViewModelFactory
@@ -42,9 +43,9 @@ class TodoFragment : BottomSheetDialogFragment() {
             var time = binding?.etTime?.text.toString()
             if(name!=""){
                 memoViewModel.updateValue(name,time, date)
-                Toast.makeText(requireContext(),"추가되었습니다.",Toast.LENGTH_LONG).show()
+                CustomToast.createToast(requireContext(),"추가되었습니다!!")?.show()
             }else{
-                Toast.makeText(requireContext(),"이름을 입력해주세요.",Toast.LENGTH_LONG).show()
+                CustomToast.createToast(requireContext(),"이름을 입력해주세요.")?.show()
             }
         }
 
