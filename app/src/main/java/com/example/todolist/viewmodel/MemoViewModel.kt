@@ -34,13 +34,15 @@ class MemoViewModel(email: String,uid: String,date: String) : ViewModel() {
         db?.collection("memo")?.whereEqualTo("date",date)?.whereEqualTo("userEmail",email)?.addSnapshotListener { value, error ->   //auth?.currentUser?.uid 사용자정보, db에 새로운 값이 들어오면 실행됨
             memoList.clear()
             memoIdList.clear()
-            for (snapshot in value!!.documents) {
-                memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
-                memoIdList.add(snapshot.id)
+            if (value != null){
+                for (snapshot in value!!.documents) {
+                    memoList.add(snapshot.toObject(Memo::class.java)!!)     //파이어베이스에서 가져온값을 memoList에 넣음
+                    memoIdList.add(snapshot.id)
+                }
+                Log.d("크기", memoList.size.toString())
+                _currentValue.value = memoList  //초기값 = 파이어베이스에서 가져온 값
+                Log.d("현재", _currentValue.value?.toString()!!)
             }
-            Log.d("크기", memoList.size.toString())
-            _currentValue.value = memoList  //초기값 = 파이어베이스에서 가져온 값
-            Log.d("현재", _currentValue.value?.toString()!!)
         }
     }
 

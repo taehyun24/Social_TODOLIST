@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.todolist.ExplainActivity
-import com.example.todolist.MemoDetailActivity
-import com.example.todolist.R
+import com.example.todolist.*
 import com.example.todolist.databinding.FragmentProfileBinding
 import com.example.todolist.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +35,7 @@ class ProfileFragment: Fragment() {
                 if (profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!){
                     binding?.follownNum?.text = profileViewModel.profileList[i].followingCount.toString()
                     binding?.followerNum?.text = profileViewModel.profileList[i].followerCount.toString()
-                    binding?.textGauge?.text = "${profileViewModel.profileList[i].gauge_value}p/100p"
+                    binding?.textGauge?.text = "${profileViewModel.profileList[i].gauge_value}/100p"
                     binding?.progressBar?.setProgress(profileViewModel.profileList[i].gauge_value)
                 }
             }
@@ -47,11 +45,18 @@ class ProfileFragment: Fragment() {
             var intent = Intent(requireContext(), ExplainActivity::class.java)
             startActivity(intent)
         }
+
+        binding?.logoutBtn?.setOnClickListener {
+            activity?.finish()
+            auth?.signOut()
+            startActivity(Intent(activity,LoginActivity::class.java))
+            CustomToast.createToast(requireContext(),"로그아웃 되었습니다.")?.show()
+        }
         return binding!!.root
     }
 
     override fun onDestroyView() {
-        binding = null
         super.onDestroyView()
+        binding = null
     }
 }

@@ -23,10 +23,12 @@ class ProfileViewModel: ViewModel() {
 
         db?.collection("profile")?.addSnapshotListener { value, error ->
             profileList.clear()
-            for (snapshot in value!!.documents){
-                profileList.add(snapshot.toObject(Profile::class.java)!!)
+            if (value != null){
+                for (snapshot in value!!.documents){
+                    profileList.add(snapshot.toObject(Profile::class.java)!!)
+                }
+                _profilecurrentValue.value = profileList
             }
-            _profilecurrentValue.value = profileList
         }
     }
 

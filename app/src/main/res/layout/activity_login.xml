@@ -1,113 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
     android:orientation="vertical"
-    android:id="@+id/loginActivity"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="85dp"
-        android:layout_height="27dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/jalnan"
-        android:text="매일매일"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
     <LinearLayout
-        android:layout_width="278dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/rect1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/jalnan"
-            android:text="Email"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/edit_email"
-            android:layout_width="262dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:ems="10"
-            android:gravity="top"
-            android:inputType="textPersonName"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="278dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/rect1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/jalnan"
-            android:text="PW"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/edit_pw"
-            android:layout_width="262dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:ems="10"
-            android:gravity="top"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
-            android:inputType="textPassword" />
-
-    </LinearLayout>
-
-    <android.widget.Button
-        android:id="@+id/login_btn"
-        android:layout_width="278dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/rect2"
-        android:text="로그인"
-        android:textSize="14sp"
-        android:fontFamily="@font/jalnan"
-        android:textColor="#FFFFFF" />
-
-    <android.widget.Button
-        android:id="@+id/signup_btn"
-        android:layout_width="278dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#000000"
-        android:fontFamily="@font/jalnan"
-        android:text="회원가입"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="85dp"
+            android:layout_height="27dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/jalnan"
+            android:text="매일매일"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="278dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/rect1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/jalnan"
+                android:text="Email"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="262dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="278dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/rect1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/jalnan"
+                android:text="PW"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edit_pw"
+                android:layout_width="262dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="textPassword"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+        <android.widget.Button
+            android:id="@+id/login_btn"
+            android:layout_width="278dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/rect2"
+            android:fontFamily="@font/jalnan"
+            android:text="로그인"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/googleLogin_btn"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:colorScheme="light" />
 
 
-</LinearLayout>
+        <android.widget.Button
+            android:id="@+id/signup_btn"
+            android:layout_width="278dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:background="#000000"
+            android:fontFamily="@font/jalnan"
+            android:text="회원가입"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
