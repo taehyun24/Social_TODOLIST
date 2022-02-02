@@ -23,6 +23,7 @@ class MemoDetailActivity: AppCompatActivity() {
 
     var binding: ActivityMemoDetailBinding? = null
     lateinit var detail_name: String
+    lateinit var detail_time: String
     lateinit var uidList: ArrayList<String>
     lateinit var profileViewModel: ProfileViewModel
 
@@ -32,6 +33,7 @@ class MemoDetailActivity: AppCompatActivity() {
         binding = ActivityMemoDetailBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         detail_name = intent?.getStringExtra("name").toString()
+        detail_time = intent?.getStringExtra("time").toString()
         uidList = intent?.getStringArrayListExtra("userID")!!   //넘어온 uid값
 
        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -55,9 +57,11 @@ class MemoDetailActivity: AppCompatActivity() {
 
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val memo_detail_name = itemView.findViewById<TextView>(R.id.memo_detail_name)
+            private val memo_detail_time = itemView.findViewById<TextView>(R.id.memo_detail_time)
 
-            fun bind(name: String) {
+            fun bind(name: String, time: String) {
                 memo_detail_name.text = name
+                memo_detail_time.text = time
             }
 
         }
@@ -67,7 +71,7 @@ class MemoDetailActivity: AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-            holder.bind(detail_name)
+            holder.bind(detail_name, detail_time)
         }
     }
 

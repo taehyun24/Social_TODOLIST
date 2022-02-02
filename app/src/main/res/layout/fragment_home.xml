@@ -15,7 +15,12 @@
         android:layout_height="1dp"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.07" />
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.93" />
 
     <TextView
         android:id="@+id/tv_home"
@@ -32,47 +37,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.069" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="114dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/jalnan"
+        android:text="2022년 1월"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_home" />
+
+    <Button
+        android:id="@+id/calendar_btn"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="20dp"
+        android:background="#000000"
+        android:drawableStart="@drawable/down_edit"
+        app:layout_constraintStart_toEndOf="@+id/tv_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_home"
-        app:layout_constraintVertical_bias="0.0">
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="114dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/jalnan"
-            android:text="2022년 1월"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/calendar_btn"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:background="#000000"
-            android:drawableStart="@drawable/down_edit"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <Button
-            android:id="@+id/follow_btn"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/rect_white"
-            android:fontFamily="@font/jalnan"
-            android:text="팔로우"
-            android:textColor="#FFFFFF"
-            android:visibility="gone"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/follow_btn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rect_white"
+        android:fontFamily="@font/jalnan"
+        android:text="팔로우"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_home"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tv_day"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date"
         app:layout_constraintVertical_bias="0.0" />
 
     <android.widget.Button

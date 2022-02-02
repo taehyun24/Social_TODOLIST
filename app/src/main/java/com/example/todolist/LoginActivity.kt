@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
             ?.addOnCompleteListener {
                     task->
                 if (task.isSuccessful){
-                    profileViewModel.updateValue(task.result?.user?.email!!, task.result?.user?.uid!!)
+                    profileViewModel.updateValue(task.result?.user?.email!!, task.result?.user?.uid!!, task.result?.user?.displayName!!)
                     moveMainPage(task.result?.user)
                 }
                 else{

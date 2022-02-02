@@ -16,7 +16,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.databinding.FragmentTab1Binding
 import com.example.todolist.databinding.FragmentTab2Binding
 import com.example.todolist.model.Profile
 import com.example.todolist.viewmodel.ProfileViewModel
@@ -98,7 +97,7 @@ class Tab2Fragment : Fragment() {
         }
 
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private val name_tv = itemView.findViewById<TextView>(R.id.name_tv)
+            private val name_tv = itemView.findViewById<TextView>(R.id.nickName_tv)
             val home_btn = itemView.findViewById<Button>(R.id.home_btn)
             fun bind(profile: Profile) {
                 name_tv.text = profile.email

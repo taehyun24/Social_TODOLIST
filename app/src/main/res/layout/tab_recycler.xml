@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name_tv"
+                android:id="@+id/nickName_tv"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
                 android:fontFamily="@font/jalnan"
@@ -37,7 +37,7 @@
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/writing_tv"
+                android:id="@+id/email_tv"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
                 android:fontFamily="@font/jalnan"

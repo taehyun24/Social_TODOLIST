@@ -1,10 +1,13 @@
 package com.example.todolist.viewmodel
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.todolist.CustomToast
 import com.example.todolist.fragments.HomeFragment
 import com.example.todolist.model.Memo
 import com.google.firebase.auth.FirebaseAuth

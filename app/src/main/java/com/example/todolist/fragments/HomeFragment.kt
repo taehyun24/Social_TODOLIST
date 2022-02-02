@@ -39,7 +39,7 @@ class HomeFragment() : Fragment() {
     var auth: FirebaseAuth? = null //유저 정보가져오기 위해 사용
     var uid: String? = null
     var email: String? = null
-    var position: Int? = null
+    var nickName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +52,9 @@ class HomeFragment() : Fragment() {
         if (arguments!= null){  //소셜 탭에서 넘어온경우
             email = arguments?.getString("email")
             uid = arguments?.getString("uid")
-            binding?.tvHome?.text = email
+            nickName = arguments?.getString("nickName")
+
+            binding?.tvHome?.text = nickName
             binding?.todoBtn?.visibility = View.INVISIBLE
             binding?.followBtn?.visibility = View.VISIBLE
         }else{  //사용자가 로그인한 경우
@@ -203,7 +205,6 @@ class HomeFragment() : Fragment() {
 
                 if (memoList[position].cheerup.containsKey(auth?.currentUser?.uid)){
                     //응원 버튼이 눌린경우
-
                     holder.memoBtn.setImageResource(R.drawable.cheer_up_edit)
                 }
                 else{
@@ -218,6 +219,7 @@ class HomeFragment() : Fragment() {
                 holder.memoBtn.setOnClickListener {
                     var intent = Intent(requireContext(),MemoDetailActivity::class.java)
                     intent.putExtra("name",memoList[position].name)
+                    intent.putExtra("time",memoList[position].time)
                     var arrayList: ArrayList<String> = arrayListOf()
                     for (i: Int in 0 until memoList[position].cheerup.keys.size){
                         arrayList.add(memoList[position].cheerup.keys.elementAt(i))

@@ -37,6 +37,16 @@
             android:layout_marginTop="10dp"
             android:background="#6E6E6E" />
 
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/jalnan"
+            android:text="반응"
+            android:textColor="#000000" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/emo_detail_recyclerView"
             android:layout_width="200dp"

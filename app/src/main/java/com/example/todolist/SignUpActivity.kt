@@ -28,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         binding?.signupBtn?.setOnClickListener {
             //빈칸이 있을경우
-            if (binding?.editId?.text?.isEmpty()!! || binding?.editPw?.text?.isEmpty()!!){
+            if (binding?.editEmail?.text?.isEmpty()!! || binding?.editPw?.text?.isEmpty()!! || binding?.editNickName?.text?.isEmpty()!!){
                 CustomToast.createToast(this,"빈칸 없이 입력해주세요.")?.show()
             }
             else{
@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
     fun signup(){
-        auth?.createUserWithEmailAndPassword(binding?.editId?.text.toString(),binding?.editPw?.text.toString())
+        auth?.createUserWithEmailAndPassword(binding?.editEmail?.text.toString(),binding?.editPw?.text.toString())
             ?.addOnCompleteListener {
                     task ->
                 var pattern: Pattern = android.util.Patterns.EMAIL_ADDRESS
@@ -50,14 +50,15 @@ class SignUpActivity : AppCompatActivity() {
                         CustomToast.createToast(this,"비밀번호를 6자 이상으로 설정해주세요.")?.show()
                     }
                     //이메일 형식이 아닐경우
-                    else if (!pattern.matcher(binding?.editId?.text?.toString()).matches()){
+                    else if (!pattern.matcher(binding?.editEmail?.text?.toString()).matches()){
                         CustomToast.createToast(this,"이메일 형식으로 입력해주세요.")?.show()
                     }
                     //모두 제대로 작성했을경우
                     else{
                         if (task.isSuccessful){
                             CustomToast.createToast(this,"성공적으로 회원가입이 되었습니다.")?.show()
-                            profileViewModel.updateValue(auth?.currentUser?.email!!, auth?.currentUser?.uid!!)
+                            profileViewModel.updateValue(binding?.editEmail?.text.toString(),
+                                auth?.currentUser?.uid!!, binding?.editNickName?.text.toString())
                             finish()
                         }
                         //아이디가 이미 있는경우

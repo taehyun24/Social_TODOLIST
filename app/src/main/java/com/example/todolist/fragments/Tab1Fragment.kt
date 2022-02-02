@@ -96,10 +96,12 @@ class Tab1Fragment : Fragment() {
         }
 
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private val name_tv = itemView.findViewById<TextView>(R.id.name_tv)
+            private val nickName_tv = itemView.findViewById<TextView>(R.id.nickName_tv)
+            private val email_tv = itemView.findViewById<TextView>(R.id.email_tv)
             val home_btn = itemView.findViewById<Button>(R.id.home_btn)
             fun bind(profile: Profile) {
-                name_tv.text = profile.email
+                nickName_tv.text = profile.nickName
+                email_tv.text = profile.email
             }
         }
 
@@ -115,6 +117,7 @@ class Tab1Fragment : Fragment() {
                 var bundle = Bundle()
                 bundle.putString("uid",profileList[position].uid)
                 bundle.putString("email",profileList[position].email)
+                bundle.putString("nickName",profileList[position].nickName)
                 Navigation.findNavController(binding!!.root).navigate(R.id.action_socialFragment_to_homeFragment,bundle)
             }
         }
