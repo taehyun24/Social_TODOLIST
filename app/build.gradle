@@ -14,6 +14,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -63,6 +64,9 @@ dependencies {
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"   //뷰페이저
     implementation 'androidx.recyclerview:recyclerview:1.1.0' //리사이클러뷰
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.google.code.gson:gson:2.0.6'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     def nav_version = "2.3.5"
     // 네비게이션

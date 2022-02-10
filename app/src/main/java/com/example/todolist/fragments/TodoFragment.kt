@@ -1,5 +1,6 @@
 package com.example.todolist.fragments
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,10 @@ import com.example.todolist.databinding.FragmentTodoBinding
 import com.example.todolist.viewmodel.MemoViewModel
 import com.example.todolist.viewmodel.MemoViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import android.widget.TimePicker
+
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 
 
 class TodoFragment : BottomSheetDialogFragment() {
@@ -37,6 +42,20 @@ class TodoFragment : BottomSheetDialogFragment() {
         memoViewModelFactory = MemoViewModelFactory(email!!, uid!!,date)
         memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
 
+        binding?.etTime?.setOnClickListener {
+            val dialog = TimePickerDialog(
+                requireContext(),
+                R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                listener,
+                15,
+                24,
+                false
+            )
+            dialog.setTitle("대여반납시간")
+            dialog.window!!.setBackgroundDrawableResource(R.color.transparent)
+            dialog.show()
+        }
+
 
         binding?.createButton?.setOnClickListener {
             var name = binding?.etName?.text.toString()
@@ -52,6 +71,12 @@ class TodoFragment : BottomSheetDialogFragment() {
         return binding!!.root
 
     }
+
+    private val listener =
+        OnTimeSetListener { view, hourOfDay, minute ->
+                binding?.etTime?.textSize = 15F
+                binding?.etTime?.setText("$hourOfDay:$minute")
+            }
 
 
     override fun onDestroyView() {

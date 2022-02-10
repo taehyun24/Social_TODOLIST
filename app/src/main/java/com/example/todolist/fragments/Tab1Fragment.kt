@@ -82,6 +82,7 @@ class Tab1Fragment : Fragment() {
     inner class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
 
         init {
+            profileList.clear()
             for (i: Int in 0 until profileViewModel.profileList.size) {
                 profileList.add(profileViewModel.profileList[i])
             }

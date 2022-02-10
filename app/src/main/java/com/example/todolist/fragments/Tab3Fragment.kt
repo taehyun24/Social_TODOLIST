@@ -78,6 +78,7 @@ class Tab3Fragment : Fragment() {
     inner class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
 
         init {
+            profileList.clear()
             for (i: Int in 0 until profileViewModel.profileList.size){
                 //다른사람의 팔로우에 내계정이 포함되어있다 = 그 사람이 내 팔로워이다.
                 if (profileViewModel.profileList[i].followings.containsKey(auth?.currentUser?.uid)){
@@ -95,10 +96,12 @@ class Tab3Fragment : Fragment() {
         }
 
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private val name_tv = itemView.findViewById<TextView>(R.id.nickName_tv)
+            private val nickName_tv = itemView.findViewById<TextView>(R.id.nickName_tv)
+            private val email_tv = itemView.findViewById<TextView>(R.id.email_tv)
             val home_btn = itemView.findViewById<Button>(R.id.home_btn)
             fun bind(profile: Profile) {
-                name_tv.text = profile.email
+                nickName_tv.text = profile.nickName
+                email_tv.text = profile.email
             }
         }
 

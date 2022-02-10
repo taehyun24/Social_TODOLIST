@@ -71,8 +71,12 @@ class MemoViewModel(email: String,uid: String,date: String) : ViewModel() {
         memo.time = time
         memo.date = day
         memo.timestamp = System.currentTimeMillis()
-        db?.collection("memo")?.document()?.set(memo)   //파이어베이스에 데이터 추가하면 위에 함수가 실행되면서 알아서 _currentValue.value값이 바뀜.
+        db?.collection("memo")?.document("${email}-${name}")?.set(memo)   //파이어베이스에 데이터 추가하면 위에 함수가 실행되면서 알아서 _currentValue.value값이 바뀜.
         Log.d("성공", "성공")
+    }
+
+    fun deleteValue(name: String){
+        db?.collection("memo")?.document("${email}-${name}")?.delete()
     }
 
     fun updateCheerUp(position: Int){
