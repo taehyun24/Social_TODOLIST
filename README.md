@@ -16,3 +16,10 @@
 + Android JetPack
 + Firebase
 ## 3. 화면
+> 메모 생성 및 삭제
+> 
+<img src="https://user-images.githubusercontent.com/89851529/153702872-07471352-4e30-42f9-b7eb-a7b7d34b04d2.gif" width="300" height="600"/>
+
+> 팔로우 및 응원하기
+> 
+<img src="https://user-images.githubusercontent.com/89851529/153702661-a22f5321-29ce-4d9c-9c5e-74ca2e06c1ae.gif" width="300" height="600"/>
