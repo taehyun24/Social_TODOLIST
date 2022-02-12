@@ -33,7 +33,7 @@ class Tab2Fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTab2Binding.inflate(inflater,container,false)
+        binding = FragmentTab2Binding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
         profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         profileViewModel.profilecurrentValue.observe(requireActivity(), Observer {
@@ -55,19 +55,19 @@ class Tab2Fragment : Fragment() {
         return binding!!.root
     }
 
-    fun search(text:String){
+    fun search(text: String) {
         // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
         profileList.clear()
 
         // 문자 입력이 없을때는 모든 데이터를 보여준다.
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             profileList.addAll(list)
         }
 
         // 문자 입력을 할때
-        else{
-            for (i:Int in 0 until list.size){
-                if (list[i].email?.contains(text)!!){
+        else {
+            for (i: Int in 0 until list.size) {
+                if (list[i].email?.contains(text)!!) {
                     profileList.add(list[i])
                 }
             }
@@ -77,13 +77,11 @@ class Tab2Fragment : Fragment() {
 
     inner class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
 
-
-
         init {
             profileList.clear()
-            for (i: Int in 0 until profileViewModel.profileList.size){
+            for (i: Int in 0 until profileViewModel.profileList.size) {
                 //다른 사람의 팔로워에 내 계정이 포함되어있다 = 내가 그사람을 팔로우하고있다
-                if (profileViewModel.profileList[i].followers.containsKey(auth?.currentUser?.uid)){
+                if (profileViewModel.profileList[i].followers.containsKey(auth?.currentUser?.uid)) {
                     profileList.add(profileViewModel.profileList[i])
                 }
             }
@@ -117,9 +115,10 @@ class Tab2Fragment : Fragment() {
             holder.home_btn.setOnClickListener {
 
                 var bundle = Bundle()
-                bundle.putString("uid",profileList[position].uid)
-                bundle.putString("email",profileList[position].email)
-                Navigation.findNavController(binding!!.root).navigate(R.id.action_socialFragment_to_homeFragment,bundle)
+                bundle.putString("uid", profileList[position].uid)
+                bundle.putString("email", profileList[position].email)
+                Navigation.findNavController(binding!!.root)
+                    .navigate(R.id.action_socialFragment_to_homeFragment, bundle)
             }
         }
     }

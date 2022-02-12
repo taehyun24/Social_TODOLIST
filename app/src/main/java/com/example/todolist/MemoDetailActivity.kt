@@ -22,16 +22,21 @@ import com.example.todolist.viewmodel.ProfileViewModel
 import android.widget.Toast
 
 import android.content.DialogInterface
+import android.content.Intent
+import com.example.todolist.fragments.HomeFragmentDirections
 import com.example.todolist.viewmodel.MemoViewModel
+import com.example.todolist.viewmodel.MemoViewModelFactory
 
 
-class MemoDetailActivity: AppCompatActivity() {
+class MemoDetailActivity : AppCompatActivity() {
 
     var binding: ActivityMemoDetailBinding? = null
     lateinit var detail_name: String
     lateinit var detail_time: String
+    lateinit var email: String
     lateinit var uidList: ArrayList<String>
     lateinit var profileViewModel: ProfileViewModel
+    lateinit var memoViewModelFactory: MemoViewModelFactory
     lateinit var memoViewModel: MemoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +50,13 @@ class MemoDetailActivity: AppCompatActivity() {
         }
         detail_name = intent?.getStringExtra("name").toString()
         detail_time = intent?.getStringExtra("time").toString()
+        email = intent?.getStringExtra("email").toString()
         uidList = intent?.getStringArrayListExtra("userID")!!   //넘어온 uid값
 
-       profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        memoViewModelFactory = MemoViewModelFactory(email, "ds", "ds")
+        memoViewModel = ViewModelProvider(this, memoViewModelFactory).get(MemoViewModel::class.java)
+
 
         profileViewModel.profilecurrentValue.observe(this, Observer {
             binding?.memoDetailRecyclerView?.adapter = MemoDetailAdapter()
@@ -62,7 +71,9 @@ class MemoDetailActivity: AppCompatActivity() {
             .setTitle("메모 삭제")
             .setMessage("메모를 삭제하시겠습니까?")
             .setPositiveButton("네",
-                DialogInterface.OnClickListener { dialogInterface, i -> memoViewModel.deleteValue(detail_name) })
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    memoViewModel.deleteValue(detail_name)
+                })
             .setNegativeButton("아니오",
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     Toast.makeText(
@@ -79,7 +90,8 @@ class MemoDetailActivity: AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
             var view =
-                LayoutInflater.from(parent.context).inflate(R.layout.memo_detail_item, parent, false)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.memo_detail_item, parent, false)
 
             return ItemViewHolder(view)
         }
@@ -104,31 +116,35 @@ class MemoDetailActivity: AppCompatActivity() {
         }
     }
 
-    inner class EmoticonAdapter : RecyclerView.Adapter<EmoticonAdapter.ItemViewHolder>(){
+    inner class EmoticonAdapter : RecyclerView.Adapter<EmoticonAdapter.ItemViewHolder>() {
 
         var userList: ArrayList<String> = arrayListOf()
+
         init {
-            for (i: Int in 0 until uidList.size){
-                for (q: Int in 0 until profileViewModel.profileList.size){
-                    if(uidList[i].equals(profileViewModel.profileList[q].uid)){
+            for (i: Int in 0 until uidList.size) {
+                for (q: Int in 0 until profileViewModel.profileList.size) {
+                    if (uidList[i].equals(profileViewModel.profileList[q].uid)) {
                         userList.add(profileViewModel.profileList[q].email!!)
                         break
                     }
                 }
             }
         }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmoticonAdapter.ItemViewHolder
-        {
+
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): EmoticonAdapter.ItemViewHolder {
             var view =
-                LayoutInflater.from(parent.context).inflate(R.layout.emo_detail_item,parent,false)
+                LayoutInflater.from(parent.context).inflate(R.layout.emo_detail_item, parent, false)
             return ItemViewHolder(view)
         }
 
-        inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val userName = itemView.findViewById<TextView>(R.id.username)
             private val emoticon = itemView.findViewById<ImageView>(R.id.emoticon)
 
-            fun bind(user: String){
+            fun bind(user: String) {
                 userName.text = user
                 emoticon.setImageResource(R.drawable.cheer_up_edit)
             }

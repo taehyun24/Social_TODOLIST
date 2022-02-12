@@ -8,7 +8,7 @@ import com.example.todolist.model.Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ProfileViewModel: ViewModel() {
+class ProfileViewModel : ViewModel() {
     var db: FirebaseFirestore? = null
     var profileList: ArrayList<Profile> = arrayListOf()
     var auth: FirebaseAuth? = null
@@ -23,8 +23,8 @@ class ProfileViewModel: ViewModel() {
 
         db?.collection("profile")?.addSnapshotListener { value, error ->
             profileList.clear()
-            if (value != null){
-                for (snapshot in value!!.documents){
+            if (value != null) {
+                for (snapshot in value!!.documents) {
                     profileList.add(snapshot.toObject(Profile::class.java)!!)
                 }
                 _profilecurrentValue.value = profileList
@@ -32,7 +32,7 @@ class ProfileViewModel: ViewModel() {
         }
     }
 
-    fun updateValue(email: String, uid: String, nickName: String){
+    fun updateValue(email: String, uid: String, nickName: String) {
         var profile = Profile()
         profile.email = email
         profile.uid = uid
@@ -40,71 +40,57 @@ class ProfileViewModel: ViewModel() {
         db?.collection("profile")?.document(uid)?.set(profile)
     }
 
-    fun requestFollow(uid: String){
+    fun requestFollow(uid: String) {
 
         //내 계정에 상대방 팔로우하는 부분
         var tsDocFollowing = db?.collection("profile")?.document(auth?.currentUser?.uid!!)
-        db?.runTransaction { transaction->
+        db?.runTransaction { transaction ->
             var followDTO = transaction.get(tsDocFollowing!!).toObject(Profile::class.java)
             Log.d("디티", followDTO.toString())
 
             //상대방을 이미 팔로우했을경우
-            if (followDTO!!.followings.containsKey(uid)){
+            if (followDTO!!.followings.containsKey(uid)) {
                 //팔로잉 취소
                 followDTO!!.followingCount -= 1
                 followDTO!!.followings.remove(uid)
-            }
-            else{
+            } else {
                 //팔로우 진행
                 followDTO.followingCount += 1
                 followDTO!!.followings[uid] = true
             }
-            transaction.set(tsDocFollowing,followDTO!!)
+            transaction.set(tsDocFollowing, followDTO!!)
             return@runTransaction
         }
 
         // 상대방 계정의 팔로워에 내 계정을 추가하는 부분
         var tsDocFollower = db?.collection("profile")?.document(uid)
-        db?.runTransaction { transaction->
+        db?.runTransaction { transaction ->
             var followDTO = transaction.get(tsDocFollower!!).toObject(Profile::class.java)
 
             //상대방의 팔로워에 내 계정이 포함되어 있을경우
             if (followDTO!!.followers.containsKey(auth?.currentUser?.uid)) {
                 followDTO!!.followerCount -= 1
                 followDTO!!.followers.remove(auth?.currentUser?.uid)
-            }else{
+            } else {
                 followDTO!!.followerCount += 1
                 followDTO!!.followers[auth?.currentUser?.uid!!] = true
             }
-            transaction.set(tsDocFollower,followDTO!!)
+            transaction.set(tsDocFollower, followDTO!!)
             return@runTransaction
         }
     }
 
-    fun updateGauge(status: String){
+    fun updateGauge(status: String) {
         var tsDoc = db?.collection("profile")?.document(auth?.currentUser?.uid!!)
-        db?.runTransaction { transaction->
+        db?.runTransaction { transaction ->
             var DTO = transaction.get(tsDoc!!).toObject(Profile::class.java)
-            if (status == "plus"){
+            if (status == "plus") {
                 DTO!!.gauge_value += 1
-            }
-            else{
+            } else {
                 DTO!!.gauge_value -= 1
             }
-            transaction.set(tsDoc,DTO!!)
+            transaction.set(tsDoc, DTO!!)
             return@runTransaction
         }
     }
-
-    /*
-    fun getFollow(uid: HashMap<String,Boolean>){
-        //팔로워에 내가 있는사람 = 내가 팔로우한 사람
-        db?.collection("profile")?.whereEqualTo("followers",uid)?.addSnapshotListener { value, error ->
-            profileList.clear()
-            for (snapshot in value!!.documents){
-                profileList.add(snapshot.toObject(Profile::class.java)!!)
-            }
-            _profilecurrentValue.value = profileList
-        }
-    }*/
 }

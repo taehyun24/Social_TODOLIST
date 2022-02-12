@@ -17,11 +17,12 @@ class SplashActivity : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
-        },DURATION)
+        }, DURATION)
 
     }
+
     companion object {
-        private const val DURATION : Long = 2000
+        private const val DURATION: Long = 2000
     }
 
     override fun onBackPressed() {

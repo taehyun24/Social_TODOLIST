@@ -22,8 +22,6 @@ import android.text.Editable
 import android.text.TextWatcher
 
 
-
-
 class Tab1Fragment : Fragment() {
     lateinit var profileViewModel: ProfileViewModel
     var binding: FragmentTab1Binding? = null
@@ -35,7 +33,7 @@ class Tab1Fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTab1Binding.inflate(inflater,container,false)
+        binding = FragmentTab1Binding.inflate(inflater, container, false)
 
         profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         profileViewModel.profilecurrentValue.observe(requireActivity(), Observer {
@@ -44,7 +42,7 @@ class Tab1Fragment : Fragment() {
         })
 
 
-        binding?.searchEdit?.addTextChangedListener(object : TextWatcher{
+        binding?.searchEdit?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
@@ -58,27 +56,26 @@ class Tab1Fragment : Fragment() {
         return binding!!.root
     }
 
-    fun search(text:String){
+    fun search(text: String) {
         // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
         profileList.clear()
 
         // 문자 입력이 없을때는 모든 데이터를 보여준다.
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             profileList.addAll(list)
         }
 
         // 문자 입력을 할때
-        else{
-            for (i:Int in 0 until list.size){
-                if (list[i].email?.contains(text)!!){
+        else {
+            for (i: Int in 0 until list.size) {
+                if (list[i].email?.contains(text)!!) {
                     profileList.add(list[i])
                 }
             }
         }
         binding?.tabRecyclerView?.adapter?.notifyDataSetChanged()
     }
-    //list = profilelist
-    //arrayList = list
+
     inner class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ItemViewHolder>() {
 
         init {
@@ -116,10 +113,11 @@ class Tab1Fragment : Fragment() {
             holder.home_btn.setOnClickListener {
 
                 var bundle = Bundle()
-                bundle.putString("uid",profileList[position].uid)
-                bundle.putString("email",profileList[position].email)
-                bundle.putString("nickName",profileList[position].nickName)
-                Navigation.findNavController(binding!!.root).navigate(R.id.action_socialFragment_to_homeFragment,bundle)
+                bundle.putString("uid", profileList[position].uid)
+                bundle.putString("email", profileList[position].email)
+                bundle.putString("nickName", profileList[position].nickName)
+                Navigation.findNavController(binding!!.root)
+                    .navigate(R.id.action_socialFragment_to_homeFragment, bundle)
             }
         }
     }

@@ -49,7 +49,7 @@ class HomeFragment() : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
 
-        if (arguments!= null){  //소셜 탭에서 넘어온경우
+        if (arguments != null) {  //소셜 탭에서 넘어온경우
             email = arguments?.getString("email")
             uid = arguments?.getString("uid")
             nickName = arguments?.getString("nickName")
@@ -57,7 +57,7 @@ class HomeFragment() : Fragment() {
             binding?.tvHome?.text = nickName
             binding?.todoBtn?.visibility = View.INVISIBLE
             binding?.followBtn?.visibility = View.VISIBLE
-        }else{  //사용자가 로그인한 경우
+        } else {  //사용자가 로그인한 경우
             email = auth?.currentUser?.email
             uid = auth?.currentUser?.uid
             binding?.todoBtn?.visibility = View.VISIBLE
@@ -65,17 +65,13 @@ class HomeFragment() : Fragment() {
         }
 
 
-
-
-
-
         //팔로우버튼 눌렀을때
         binding?.followBtn?.setOnClickListener {
             profileViewModel.requestFollow(uid!!)
-            if (binding?.followBtn?.text == "팔로우"){
-                CustomToast.createToast(requireContext(),"팔로우했어요")?.show()
-            }else{
-                CustomToast.createToast(requireContext(),"팔로우를 취소했어요")?.show()
+            if (binding?.followBtn?.text == "팔로우") {
+                CustomToast.createToast(requireContext(), "팔로우했어요")?.show()
+            } else {
+                CustomToast.createToast(requireContext(), "팔로우를 취소했어요")?.show()
             }
 
         }
@@ -87,11 +83,11 @@ class HomeFragment() : Fragment() {
         date = dataFormat.format(get_date)
         now_date = dataFormat.format(get_date)
         binding?.tvDate?.text = date    //현재 날짜
-        getDateDay(date,"yyyy년M월dd일")    //요일구하기
+        getDateDay(date, "yyyy년M월dd일")    //요일구하기
 
         //뷰모델 불러오기
         memoViewModelFactory = MemoViewModelFactory(email!!, uid!!, date)
-        memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
+        memoViewModel = ViewModelProvider(this, memoViewModelFactory).get(MemoViewModel::class.java)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         //뷰모델 관찰
@@ -101,13 +97,13 @@ class HomeFragment() : Fragment() {
         })
 
         profileViewModel.profilecurrentValue.observe(requireActivity(), Observer {
-            for (i:Int in 0 until profileViewModel.profileList.size){
+            for (i: Int in 0 until profileViewModel.profileList.size) {
                 //내 계정의 팔로잉에 상대방의 uid를 포함하고있을때
-                if(profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!){
+                if (profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!) {
                     var myUID = profileViewModel.profileList[i]
-                    if (myUID.followings.keys.contains(uid)){
+                    if (myUID.followings.keys.contains(uid)) {
                         binding?.followBtn?.text = "팔로우 취소"
-                    }else{
+                    } else {
                         binding?.followBtn?.text = "팔로우"
                     }
                     break
@@ -124,16 +120,22 @@ class HomeFragment() : Fragment() {
             val month = today.get(Calendar.MONTH)
             val day = today.get(Calendar.DATE)
 
-            val dlg = DatePickerDialog(requireContext(),object : DatePickerDialog.OnDateSetListener{
-                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int){
-                    date = "${year}년${month+1}월${dayOfMonth}일"
-                    Log.d("데이트",date)
-                    binding?.tvDate?.text = date
-                    getDateDay(date,"yyyy년M월dd일")    //요일구하기
-                    memoViewModel.getData(date,email!!)
-                }
+            val dlg =
+                DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
+                    override fun onDateSet(
+                        view: DatePicker?,
+                        year: Int,
+                        month: Int,
+                        dayOfMonth: Int
+                    ) {
+                        date = "${year}년${month + 1}월${dayOfMonth}일"
+                        Log.d("데이트", date)
+                        binding?.tvDate?.text = date
+                        getDateDay(date, "yyyy년M월dd일")    //요일구하기
+                        memoViewModel.getData(date, email!!)
+                    }
 
-            },year,month,day)
+                }, year, month, day)
 
             dlg.show()
 
@@ -149,12 +151,12 @@ class HomeFragment() : Fragment() {
         //할일 버튼 눌렀을때
         binding?.todoBtn?.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("date",date)
-            bundle.putString("uid",uid)
-            bundle.putString("email",email)
+            bundle.putString("date", date)
+            bundle.putString("uid", uid)
+            bundle.putString("email", email)
             val todoFragment = TodoFragment()
             todoFragment.arguments = bundle
-            todoFragment.show(requireFragmentManager(),"Dialog Fragment")
+            todoFragment.show(requireFragmentManager(), "Dialog Fragment")
         }
     }
 
@@ -163,7 +165,7 @@ class HomeFragment() : Fragment() {
         var memoList: ArrayList<Memo> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-           var view =
+            var view =
                 LayoutInflater.from(parent.context).inflate(R.layout.memo_item, parent, false)
             return ItemViewHolder(view)
         }
@@ -181,8 +183,8 @@ class HomeFragment() : Fragment() {
 
         override fun getItemCount(): Int {
             memoList.clear()    // 이 함수가 계속 반복되서 넣었음.(이유 나중에 알아보기)
-            for (i: Int in 0 until memoViewModel.memoList.size){
-                if (memoViewModel.memoList[i].date == date){
+            for (i: Int in 0 until memoViewModel.memoList.size) {
+                if (memoViewModel.memoList[i].date == date) {
                     memoList.add(memoViewModel.memoList[i])
                 }
             }
@@ -197,62 +199,60 @@ class HomeFragment() : Fragment() {
 
             if (binding?.followBtn?.visibility == View.VISIBLE)      //다른 사람 계정인경우
             {
-               // holder.memoBtn.setImageResource(R.drawable.home_edit)
-                holder.memoBtn.setOnClickListener{
+                // holder.memoBtn.setImageResource(R.drawable.home_edit)
+                holder.memoBtn.setOnClickListener {
                     //응원 버튼 기능
                     memoViewModel.updateCheerUp(position)
                 }
 
-                if (memoList[position].cheerup.containsKey(auth?.currentUser?.uid)){
+                if (memoList[position].cheerup.containsKey(auth?.currentUser?.uid)) {
                     //응원 버튼이 눌린경우
                     holder.memoBtn.setImageResource(R.drawable.cheer_up_edit)
-                }
-                else{
+                } else {
                     //응원 버튼이 안눌린경우
                     holder.memoBtn.setImageResource(R.drawable.cheer_up_empty_edit)
                 }
-            }
-
-            else        //내 계정인경우
+            } else        //내 계정인경우
             {
                 holder.memoBtn.setImageResource(R.drawable.ellipsis_edit)
                 holder.memoBtn.setOnClickListener {
-                    var intent = Intent(requireContext(),MemoDetailActivity::class.java)
-                    intent.putExtra("name",memoList[position].name)
-                    intent.putExtra("time",memoList[position].time)
+                    var intent = Intent(requireContext(), MemoDetailActivity::class.java)
+                    intent.putExtra("name", memoList[position].name)
+                    intent.putExtra("time", memoList[position].time)
+                    intent.putExtra("email", email)
                     var arrayList: ArrayList<String> = arrayListOf()
-                    for (i: Int in 0 until memoList[position].cheerup.keys.size){
+                    for (i: Int in 0 until memoList[position].cheerup.keys.size) {
                         arrayList.add(memoList[position].cheerup.keys.elementAt(i))
                     }
-                    intent.putExtra("userID",arrayList)
+                    intent.putExtra("userID", arrayList)
                     startActivity(intent)
                 }
 
-                if (memoList[position].date == binding?.tvDate?.text){
+                if (memoList[position].date == binding?.tvDate?.text) {
 
                     //체크박스가 선택된 상태일 경우
-                    if (holder.checkBox.isChecked){
+                    if (holder.checkBox.isChecked) {
 
                         holder.checkBox.setOnClickListener {
-                            memoViewModel.updateCheckBox(position,false)
+                            memoViewModel.updateCheckBox(position, false)
                             holder.checkBox.isChecked = false
                             profileViewModel.updateGauge("minus")
-                            CustomToast.createToast(context!!,"취소했어요..")?.show()
+                            CustomToast.createToast(context!!, "취소했어요..")?.show()
                         }
-                    }
-                    else{
+                    } else {
 
                         holder.checkBox.setOnClickListener {
-                            memoViewModel.updateCheckBox(position,true)
+                            memoViewModel.updateCheckBox(position, true)
                             holder.checkBox.isChecked = true
                             profileViewModel.updateGauge("plus")
-                            CustomToast.createToast(context!!,"완료했어요!!")?.show()
+                            CustomToast.createToast(context!!, "완료했어요!!")?.show()
                         }
                     }
                 }
             }
         }
     }
+
     //요일 구하기
     @Throws(Exception::class)
     fun getDateDay(date: String?, dateType: String?) {

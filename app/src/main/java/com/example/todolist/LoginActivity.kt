@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
             login()
         }
         binding?.signupBtn?.setOnClickListener {
-            startActivity(Intent(this,SignUpActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
         //구글 로그인
@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             .requestIdToken("1069157049850-ac1tscegvsgluh9a3e7hkllmpf9jnvld.apps.googleusercontent.com")
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(this,gso)
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding?.googleLoginBtn?.setOnClickListener {
             googleLogin()
@@ -57,26 +57,26 @@ class LoginActivity : AppCompatActivity() {
         try {
             auth?.signInWithEmailAndPassword(
                 binding?.editEmail?.text.toString(),
-                binding?.editPw?.text.toString())
-                ?.addOnCompleteListener {
-                        task ->
+                binding?.editPw?.text.toString()
+            )
+                ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         moveMainPage(task.result?.user)
                     } else {
-                        CustomToast.createToast(this,"아이디 또는 비밀번호가 틀렸습니다.")?.show()
+                        CustomToast.createToast(this, "아이디 또는 비밀번호가 틀렸습니다.")?.show()
                     }
                 }
-        }catch (e: IllegalArgumentException){
-            CustomToast.createToast(this,"아이디 또는 비밀번호를 입력해주세요.")?.show()
+        } catch (e: IllegalArgumentException) {
+            CustomToast.createToast(this, "아이디 또는 비밀번호를 입력해주세요.")?.show()
         }
 
     }
 
-    fun moveMainPage(user: FirebaseUser?){
-        if (user != null){
-            var intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("email",user.email)
-            intent.putExtra("uid",user.uid)
+    fun moveMainPage(user: FirebaseUser?) {
+        if (user != null) {
+            var intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("email", user.email)
+            intent.putExtra("uid", user.uid)
             startActivity(intent)
             finish()
         }
@@ -87,31 +87,34 @@ class LoginActivity : AppCompatActivity() {
         moveMainPage(auth?.currentUser)
     }
 
-    fun googleLogin(){
+    fun googleLogin() {
         var signInIntent = googleSignInClient?.signInIntent
-        startActivityForResult(signInIntent,google_login_code)
+        startActivityForResult(signInIntent, google_login_code)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == google_login_code){
+        if (requestCode == google_login_code) {
             var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data!!)
-            if (result!!.isSuccess){
+            if (result!!.isSuccess) {
                 var account = result.signInAccount
                 firebaseAuthWithGoogle(account)
             }
         }
     }
-    fun firebaseAuthWithGoogle(account: GoogleSignInAccount?){
-        var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
+
+    fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+        var credential = GoogleAuthProvider.getCredential(account?.idToken, null)
         auth?.signInWithCredential(credential)
-            ?.addOnCompleteListener {
-                    task->
-                if (task.isSuccessful){
-                    profileViewModel.updateValue(task.result?.user?.email!!, task.result?.user?.uid!!, task.result?.user?.displayName!!)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    profileViewModel.updateValue(
+                        task.result?.user?.email!!,
+                        task.result?.user?.uid!!,
+                        task.result?.user?.displayName!!
+                    )
                     moveMainPage(task.result?.user)
-                }
-                else{
+                } else {
                     CustomToast.createToast(this, task.exception?.message.toString())?.show()
                 }
             }

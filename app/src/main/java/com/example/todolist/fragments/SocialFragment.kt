@@ -14,7 +14,7 @@ import com.example.todolist.databinding.FragmentSocialBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class SocialFragment: Fragment() {
+class SocialFragment : Fragment() {
 
     private var binding: FragmentSocialBinding? = null
 
@@ -23,18 +23,18 @@ class SocialFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSocialBinding.inflate(inflater,container,false)
+        binding = FragmentSocialBinding.inflate(inflater, container, false)
 
         //페이지 프래그먼트 가져옴
-        val list = listOf(Tab1Fragment(),Tab2Fragment(),Tab3Fragment())
+        val list = listOf(Tab1Fragment(), Tab2Fragment(), Tab3Fragment())
         //어댑터 생성
-        val pagerAdapter = FragmentPagerAdapter(list,requireActivity())
+        val pagerAdapter = FragmentPagerAdapter(list, requireActivity())
         //어댑터와 뷰페이저 연결
         binding?.viewPager?.adapter = pagerAdapter
         //탭 제목 생성
-        val titles = listOf("검색","팔로우","팔로워")
+        val titles = listOf("검색", "팔로우", "팔로워")
         //탭레이아웃과 뷰페이저 연결
-        TabLayoutMediator(binding?.tabLayout!!, binding?.viewPager!!){ tab, position ->
+        TabLayoutMediator(binding?.tabLayout!!, binding?.viewPager!!) { tab, position ->
             tab.text = titles[position]
         }.attach()
         return binding!!.root
@@ -46,7 +46,8 @@ class SocialFragment: Fragment() {
     }
 }
 
-class FragmentPagerAdapter(val fragmentList: List<Fragment>, fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity){
+class FragmentPagerAdapter(val fragmentList: List<Fragment>, fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount() = fragmentList.size
 

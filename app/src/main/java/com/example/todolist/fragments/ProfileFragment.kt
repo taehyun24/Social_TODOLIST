@@ -14,7 +14,7 @@ import com.example.todolist.databinding.FragmentProfileBinding
 import com.example.todolist.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
 
     lateinit var profileViewModel: ProfileViewModel
     private var binding: FragmentProfileBinding? = null
@@ -25,16 +25,18 @@ class ProfileFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileBinding.inflate(inflater,container,false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         profileViewModel.profilecurrentValue.observe(requireActivity(), Observer {
-            for (i: Int in 0 until profileViewModel.profileList.size){
+            for (i: Int in 0 until profileViewModel.profileList.size) {
                 //내계정일경우
-                if (profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!){
-                    binding?.follownNum?.text = profileViewModel.profileList[i].followingCount.toString()
-                    binding?.followerNum?.text = profileViewModel.profileList[i].followerCount.toString()
+                if (profileViewModel.profileList[i].uid?.equals(auth?.currentUser?.uid)!!) {
+                    binding?.follownNum?.text =
+                        profileViewModel.profileList[i].followingCount.toString()
+                    binding?.followerNum?.text =
+                        profileViewModel.profileList[i].followerCount.toString()
                     binding?.textGauge?.text = "${profileViewModel.profileList[i].gauge_value}/100p"
                     binding?.progressBar?.setProgress(profileViewModel.profileList[i].gauge_value)
                 }
@@ -49,8 +51,8 @@ class ProfileFragment: Fragment() {
         binding?.logoutBtn?.setOnClickListener {
             activity?.finish()
             auth?.signOut()
-            startActivity(Intent(activity,LoginActivity::class.java))
-            CustomToast.createToast(requireContext(),"로그아웃 되었습니다.")?.show()
+            startActivity(Intent(activity, LoginActivity::class.java))
+            CustomToast.createToast(requireContext(), "로그아웃 되었습니다.")?.show()
         }
         return binding!!.root
     }

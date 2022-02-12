@@ -7,8 +7,8 @@ data class Memo(
     var date: String? = null,
     var userEmail: String? = null,
     var timestamp: Long? = null,
-    var cheerupCount : Int = 0,
-    var cheerup: MutableMap<String,Boolean> = HashMap(),
+    var cheerupCount: Int = 0,
+    var cheerup: MutableMap<String, Boolean> = HashMap(),
     var check_status: Boolean = false,
 ) {
 }

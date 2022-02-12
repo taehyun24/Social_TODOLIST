@@ -2,52 +2,61 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/deleteBtn"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:srcCompat="@drawable/delete" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="138dp"
-        android:layout_height="48dp"
+        android:layout_width="92dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/jalnan"
+        android:gravity="center"
         android:text="TODO"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/memo_detail_recyclerView"
         android:layout_width="200dp"
         android:layout_height="180dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:listitem="@layout/memo_detail_item" />
 
     <View
         android:id="@+id/view"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="2dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="2dp"
         android:background="#6E6E6E"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/memo_detail_recyclerView" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/jalnan"
         android:text="반응"
         android:textColor="#000000"
@@ -60,16 +69,8 @@
         android:layout_width="200dp"
         android:layout_height="180dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/memo_detail_recyclerView" />
-
-    <Button
-        android:id="@+id/delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="삭제"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

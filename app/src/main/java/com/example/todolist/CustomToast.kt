@@ -15,7 +15,7 @@ object CustomToast {
             DataBindingUtil.inflate(inflater, R.layout.toast_custom, null, false)
 
         binding.tvSample.text = message
-        when(message){
+        when (message) {
             "취소했어요.." -> binding.ivSample.setImageResource(R.drawable.frustrated)
             "완료했어요!!" -> binding.ivSample.setImageResource(R.drawable.happy)
 

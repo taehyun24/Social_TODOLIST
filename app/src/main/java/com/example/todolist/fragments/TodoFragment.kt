@@ -33,25 +33,25 @@ class TodoFragment : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
 
-           //현재날짜
+        //현재날짜
         var date = arguments?.get("date").toString()
         uid = arguments?.get("uid").toString()
         email = arguments?.get("email").toString()
         binding?.tvDate?.text = "날짜: ${date}"
 
-        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!,date)
-        memoViewModel = ViewModelProvider(this,memoViewModelFactory).get(MemoViewModel::class.java)
+        memoViewModelFactory = MemoViewModelFactory(email!!, uid!!, date)
+        memoViewModel = ViewModelProvider(this, memoViewModelFactory).get(MemoViewModel::class.java)
 
         binding?.etTime?.setOnClickListener {
             val dialog = TimePickerDialog(
                 requireContext(),
                 R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 listener,
-                15,
-                24,
+                12,
+                0,
                 false
             )
-            dialog.setTitle("대여반납시간")
+            dialog.setTitle("시간")
             dialog.window!!.setBackgroundDrawableResource(R.color.transparent)
             dialog.show()
         }
@@ -60,11 +60,11 @@ class TodoFragment : BottomSheetDialogFragment() {
         binding?.createButton?.setOnClickListener {
             var name = binding?.etName?.text.toString()
             var time = binding?.etTime?.text.toString()
-            if(name!=""){
-                memoViewModel.updateValue(name,time, date)
-                CustomToast.createToast(requireContext(),"추가되었습니다!!")?.show()
-            }else{
-                CustomToast.createToast(requireContext(),"이름을 입력해주세요.")?.show()
+            if (name != "") {
+                memoViewModel.updateValue(name, time, date)
+                CustomToast.createToast(requireContext(), "추가되었습니다!!")?.show()
+            } else {
+                CustomToast.createToast(requireContext(), "이름을 입력해주세요.")?.show()
             }
         }
 
@@ -74,9 +74,9 @@ class TodoFragment : BottomSheetDialogFragment() {
 
     private val listener =
         OnTimeSetListener { view, hourOfDay, minute ->
-                binding?.etTime?.textSize = 15F
-                binding?.etTime?.setText("$hourOfDay:$minute")
-            }
+            binding?.etTime?.textSize = 15F
+            binding?.etTime?.setText("${hourOfDay}시${minute}분")
+        }
 
 
     override fun onDestroyView() {
